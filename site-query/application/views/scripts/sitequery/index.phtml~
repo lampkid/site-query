@@ -1,0 +1,89 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<style>
+div#report
+{
+    text-align:center;
+}
+
+#report table, #ipwhois 
+{
+    margin:20 auto;
+    border: 5px solid black; 
+
+}  
+
+caption
+{
+    background:#0f0;
+}
+
+td
+{
+    border: 1px dashed #222; 
+}
+</style>
+
+<div id="report">
+    <table>
+    <?php
+        if(isset($this->host))
+        {
+            print "<caption>主机信息 </caption>";
+        
+            foreach($this->host as $key => $value)
+            {
+                print "<tr><td>{$key}</td><td>{$value}</td></tr>";
+            }
+        }
+
+     ?>
+
+    </table>
+
+    <table>
+     <?php
+        if(isset($this->seo))
+        {
+            print "<caption>SEO信息</caption>";
+            foreach($this->seo as $key => $value)
+            {
+                print "<tr><td>{$key}</td><td>{$value}</td></tr>";
+
+            }
+        }
+    ?>
+
+    </table>
+
+    <table id="ipwhois" >
+        <?php
+            if(isset($this->ipwhois))
+            {
+                print "<caption>WHOIS信息</caption>";
+                foreach($this->ipwhois as $item)
+                {
+                    if(strpos($item,'...'))
+                    {
+                         list($key,$value) = preg_split('/[.]{3,}/',$item);
+                         print "<tr><td>{$key}</td><td>{$value}</td></tr>";
+                    }
+
+                    else if(strpos($item,':') && !strpos($item,'://www'))
+                    {
+                         list($key,$value) = preg_split('/:/',$item);
+                         print "<tr><td>{$key}</td><td>{$value}</td></tr>";
+                    }
+                    /*
+                    else
+                    {
+                         print "<tr><td>{$item}</td></tr>";
+                    }
+                    */
+                }
+            }
+        ?>
+
+    <table>
+</div>
